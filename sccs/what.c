@@ -23,7 +23,7 @@ sccs_what(char const *file, FILE *fp, bool sflag)
 
 	printf("%s:\n", file);
 	for (int i = 0; (c = fgetc(fp)) != EOF;) {
-		i = (c == ID[i]) ? i + 1 : 0;
+		i = (c == ID[i]) ? i + 1 : (c == '@') ? 1 : 0;
 		if (i == 4) { /* Match found! */
 			i = 0;
 			found = true;
