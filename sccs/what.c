@@ -25,6 +25,7 @@ sccs_what(char const *file, FILE *fp, bool sflag)
 	for (int i = 0; (c = fgetc(fp)) != EOF;) {
 		i = (c == ID[i]) ? i + 1 : 0;
 		if (i == 4) { /* Match found! */
+			i = 0;
 			found = true;
 			putchar('\t');
 			while ((c = fgetc(fp)) != EOF && !strchr(STOP, c))
@@ -64,7 +65,7 @@ main(int argc, char *argv[])
 
 	for (; *argv; ++argv) {
 		if (!(fp = fopen(*argv, "r")))
-			die("what: fopen cannot open '%s' for reading:", *argv);
+			die("what: fopen: cannot open '%s' for reading:", *argv);
 		if (sccs_what(*argv, fp, sflag))
 			ret = 0;
 	}
