@@ -1,0 +1,24 @@
+  VCS
++------+
+
+A collection of simple and stripped down implementations of common version
+control systems. They're useful for those who either want a simple and clean
+implementation of a certain tool, need the most basic functionality or simply
+have size restrictions.
+
+  Utilities
++-----------+
+
+  { commands }  [ flags ]
+
+** SCCS      (not implemented)
+  ->
+
+** Git       (not implemented)
+  ->
+
+** Mercurial (not implemented)
+  ->
+
+** CVS       (not implemented)
+  ->
