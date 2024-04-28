@@ -23,13 +23,8 @@ sccs_what(char const *file, FILE *fp, bool sflag)
 
 	printf("%s:\n", file);
 	for (int i = 0; (c = fgetc(fp)) != EOF;) {
-		if (c == ID[i])
-			++i;
-		else
-			i = 0;
-
-		/* Match found! */
-		if (i == 4) {
+		i = (c == ID[i]) ? i + 1 : 0;
+		if (i == 4) { /* Match found! */
 			found = true;
 			putchar('\t');
 			while ((c = fgetc(fp)) != EOF && !strchr(STOP, c))
