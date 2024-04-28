@@ -9,10 +9,10 @@ have size restrictions.
   Utilities
 +-----------+
 
-  { commands }  [ flags ]
+  { commands }      [ flags ]
 
-** SCCS      (not implemented)
-  ->
+** SCCS (POSIX.1-2017 compliant)
+  -> sccs what       [ -s ]
 
 ** Git       (not implemented)
   ->
