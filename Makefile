@@ -1,7 +1,6 @@
 # See LICENSE file for copyright and license details.
 .POSIX:
 .SUFFIXES:
-.SUFFIXES: .c
 
 include config.mak
 
@@ -14,15 +13,14 @@ LIBUTIL_SRC =\
              $(LIBUTIL_DIR)/util.c
 
 SCCS_SRC  =\
+           $(SCCS_SRC_DIR)/sccs.c\
            $(SCCS_SRC_DIR)/what.c
-SCCS_BIN = $(SCCS_SRC:.c=)
+SCCS_BIN = $(SCCS_SRC_DIR)/sccs
 
 all: $(SCCS_BIN)
 
 $(SCCS_BIN): $(SCCS_SRC) $(LIBUTIL_SRC)
-
-.c:
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $< $(LIBUTIL_SRC) $(LDFLAGS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(SCCS_SRC) $(LIBUTIL_SRC) $(LDFLAGS)
 
 clean:
 	rm -f $(SCCS_BIN)

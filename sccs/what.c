@@ -12,21 +12,20 @@
 static void
 usage(void)
 {
-	die("what: [-s] file...");
+	die("sccs-what: [-s] file...");
 }
 
-static bool
-sccs_what(char const *file, FILE *fp, bool sflag)
+static int
+what(char const *file, FILE *fp, bool sflag)
 {
 	char c;
-	bool found = false;
+	int ret = -1;
 
 	printf("%s:\n", file);
 	for (int i = 0; (c = fgetc(fp)) != EOF;) {
 		i = (c == ID[i]) ? i + 1 : (c == '@') ? 1 : 0;
 		if (i == 4) { /* Match found! */
-			i = 0;
-			found = true;
+			i = ret = 0;
 			putchar('\t');
 			while ((c = fgetc(fp)) != EOF && !strchr(STOP, c))
 				putchar(c);
@@ -36,17 +35,18 @@ sccs_what(char const *file, FILE *fp, bool sflag)
 		}
 	}
 
-	return found;
+	return ret;
 }
 
 int
-main(int argc, char *argv[])
+sccs_what(int argc, char *argv[])
 {
 	bool sflag;
 	int opt;
 	int ret = 1;
 	FILE *fp;
 
+	optind = 0;
 	while ((opt = getopt(argc, argv, "s")) != -1) {
 		switch (opt) {
 		case 's':
@@ -65,9 +65,10 @@ main(int argc, char *argv[])
 
 	for (; *argv; ++argv) {
 		if (!(fp = fopen(*argv, "r")))
-			die("what: fopen: cannot open '%s' for reading:", *argv);
-		if (sccs_what(*argv, fp, sflag))
+			die("sccs-what: fopen: cannot open '%s':", *argv);
+		if (what(*argv, fp, sflag))
 			ret = 0;
+		fclose(fp);
 	}
 
 	return ret;
