@@ -43,7 +43,7 @@ sccs_what(int argc, char *argv[])
 {
 	bool sflag;
 	int opt;
-	int ret = 1;
+	int ret = 0;
 	FILE *fp;
 
 	optind = 0;
@@ -67,7 +67,7 @@ sccs_what(int argc, char *argv[])
 		if (!(fp = fopen(*argv, "r")))
 			die("sccs-what: fopen: cannot open '%s':", *argv);
 		if (what(*argv, fp, sflag))
-			ret = 0;
+			ret = 1;
 		fclose(fp);
 	}
 
