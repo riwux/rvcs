@@ -18,12 +18,12 @@ usage(void)
 static int
 what(char const *file, FILE *fp, bool sflag)
 {
-	char c;
+	int c;
 	int ret = -1;
 
 	printf("%s:\n", file);
 	for (int i = 0; (c = fgetc(fp)) != EOF;) {
-		i = (c == ID[i]) ? i + 1 : (c == '@') ? 1 : 0;
+		i = (c == ID[i]) ? i + 1 : (c == ID[0]) ? 1 : 0;
 		if (i == 4) { /* Match found! */
 			i = ret = 0;
 			putchar('\t');
@@ -41,7 +41,7 @@ what(char const *file, FILE *fp, bool sflag)
 int
 sccs_what(int argc, char *argv[])
 {
-	bool sflag;
+	bool sflag = false;
 	int opt;
 	int ret = 0;
 	FILE *fp;
